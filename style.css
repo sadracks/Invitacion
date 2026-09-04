@@ -1,0 +1,431 @@
+/* ================= CONFIGURACIÓN BÁSICA Y TEMAS (CLARO / OSCURO) ================= */
+:root {
+    --altura-barra: 60px;
+}
+
+body.tema-claro {
+    --bg-global: #fdfbf7;
+    --texto-principal: #2C3E50;
+    --texto-secundario: #666;
+    --caja-bg: #ffffff;
+    --caja-borde: rgba(0,0,0,0.04);
+}
+
+body.tema-oscuro {
+    --bg-global: #121820;
+    --texto-principal: #f0f4f8;
+    --texto-secundario: #a0aec0;
+    --caja-bg: #1e2631;
+    --caja-borde: rgba(255,255,255,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-global);
+    color: var(--texto-principal);
+    overflow-x: hidden;
+    transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+/* ================= CORTINA DE ANIMACIÓN (SOL / LUNA) ================= */
+#cortina-transicion {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: #121820; z-index: 99999;
+    display: flex; justify-content: center; align-items: center; pointer-events: none;
+    clip-path: circle(0% at 50% 50%);
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+#cortina-transicion.subir { clip-path: inset(100% 0 0 0); }
+#cortina-transicion.bajar { clip-path: inset(0 0 100% 0); }
+
+#icono-transicion {
+    font-size: 4rem; animation: rotarIcono 1.2s ease-in-out;
+}
+
+@keyframes rotarIcono {
+    0% { transform: scale(0.2) rotate(0deg); opacity: 0; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+    100% { transform: scale(1) rotate(360deg); opacity: 0; }
+}
+
+/* ================= PRELOADER ================= */
+#preloader {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: var(--bg-global); z-index: 10000;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    transition: opacity 0.8s ease, background-color 0.8s ease;
+}
+
+.anillos-svg {
+    stroke: #FFD700; filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.8)); 
+}
+
+.anillo-trazo {
+    stroke-dasharray: 160; stroke-dashoffset: 160;
+    animation: dibujarAnillo 2s ease-in-out forwards alternate infinite;
+}
+
+@keyframes dibujarAnillo { to { stroke-dashoffset: 0; } }
+
+.cargando-texto {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-top: 20px; 
+    color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* ================= BARRA SUPERIOR ================= */
+#top-bar {
+    position: fixed; top: 0; left: 0; width: 100%; height: var(--altura-barra);
+    background-color: var(--celeste-barra); z-index: 5000;
+    display: flex; justify-content: center; align-items: center; gap: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: background-color 0.6s ease;
+}
+
+.indicador {
+    font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.7);
+    text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; display: none;
+}
+.indicador.activo { color: #fff; font-weight: 600; display: block; }
+
+@media (min-width: 768px) { .indicador { display: block; } }
+
+/* ================= LUCEROS Y MARIPOSAS ================= */
+#luceros-container {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; z-index: 10;
+}
+
+.particula-magica {
+    position: absolute; bottom: -20px;
+    display: flex; justify-content: center; align-items: center;
+    animation: subirMagico linear forwards;
+}
+
+.lucero {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: currentColor; box-shadow: 0 0 8px 2px currentColor;
+    transition: opacity 0.3s; animation: pulsoMitad linear forwards;
+}
+
+.corazon-final {
+    position: absolute; opacity: 0; width: 16px; height: 16px;
+    transform: scale(0.3); transition: all 0.5s ease-out;
+}
+
+@keyframes subirMagico {
+    0% { transform: translateY(0); opacity: 0; }
+    10% { opacity: 0.9; }
+    85% { opacity: 0.9; }
+    100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+@keyframes pulsoMitad {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.1); }
+    80% { transform: scale(1); }
+    100% { transform: scale(1); }
+}
+
+.transformacion-corazon .lucero { opacity: 0; }
+.transformacion-corazon .corazon-final {
+    opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px currentColor);
+}
+
+#mariposas-container {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; z-index: 20; transition: opacity 1s ease;
+}
+
+.mariposa { position: absolute; }
+
+@keyframes volarIzquierda {
+    0% { transform: translateX(0) translateY(0); opacity: 0; }
+    10% { opacity: 0.85; transform: translateX(-10vw) translateY(-4vh); }
+    30% { transform: translateX(-30vw) translateY(5vh); }
+    50% { transform: translateX(-50vw) translateY(-5vh); }
+    70% { transform: translateX(-70vw) translateY(4vh); }
+    90% { opacity: 0.85; transform: translateX(-90vw) translateY(-2vh); }
+    100% { transform: translateX(-120vw) translateY(-10vh); opacity: 0; }
+}
+
+@keyframes volarDerecha {
+    0% { transform: translateX(0) translateY(0); opacity: 0; }
+    10% { opacity: 0.85; transform: translateX(10vw) translateY(4vh); }
+    30% { transform: translateX(30vw) translateY(-5vh); }
+    50% { transform: translateX(50vw) translateY(5vh); }
+    70% { transform: translateX(70vw) translateY(-4vh); }
+    90% { opacity: 0.85; transform: translateX(90vw) translateY(2vh); }
+    100% { transform: translateX(120vw) translateY(-10vh); opacity: 0; }
+}
+
+.gif-mariposa {
+    width: 52px; height: auto; display: block;
+    filter: hue-rotate(35deg) saturate(1.4) drop-shadow(0 0 5px rgba(255,255,255,0.9)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
+}
+
+/* ================= PANTALLAS Y ANIMACIONES FADE ================= */
+.pantalla-seccion {
+    min-height: 100vh; width: 100%; padding-top: var(--altura-barra);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    position: relative; transition: background-color 0.8s ease;
+}
+
+.contenido-centro { text-align: center; padding: 20px; max-width: 700px; position: relative; }
+
+.seccion-animada {
+    opacity: 0; transform: translateY(30px) scale(0.95);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.seccion-animada.activo-fade { opacity: 1; transform: translateY(0) scale(1); }
+.seccion-animada.salida-fade { opacity: 0; transform: translateY(-30px) scale(0.95); }
+
+.contenedor-sobre {
+    width: 100%; max-width: 380px; margin: 0 auto 20px;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.imagen-sobre {
+    width: 100%; height: auto; object-fit: contain;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.25));
+}
+
+.open-fade {
+    opacity: 0; transform: scale(0.9);
+    animation: abrirFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes abrirFade { to { opacity: 1; transform: scale(1); } }
+
+.titulo-boda { 
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; 
+    letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600;
+}
+
+.fecha-boda {
+    font-family: 'Montserrat', sans-serif; font-size: 0.95rem;
+    letter-spacing: 2px; color: var(--texto-secundario); margin-bottom: 15px; font-weight: 300;
+}
+
+.linea-divisoria { width: 50px; height: 1.5px; background-color: var(--texto-principal); margin: 0 auto 15px; }
+
+.nombres-novios { 
+    font-family: 'Cormorant Garamond', serif; font-size: 4.2rem; font-style: italic;
+    color: var(--texto-principal); line-height: 1.1; font-weight: 400;
+}
+
+.titulo-seccion {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; margin-bottom: 15px; font-weight: 600;
+    color: var(--texto-principal);
+}
+
+.texto-agradecimiento {
+    font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: var(--texto-secundario);
+    line-height: 1.6; max-width: 550px; margin: 0 auto 20px; font-weight: 300; min-height: 60px;
+}
+
+.frase-te-esperamos {
+    font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-style: italic;
+    color: var(--texto-principal); font-weight: 400; margin-top: 10px; letter-spacing: 1px;
+}
+
+/* ================= FUEGOS ARTIFICIALES ================= */
+#fuegos-artificiales-container {
+    position: absolute; top: 50%; left: 50%; width: 0; height: 0;
+    pointer-events: none; z-index: 50; overflow: visible;
+}
+
+.particula-fuego {
+    position: absolute; width: 6px; height: 6px; border-radius: 50%;
+    opacity: 0; transform: translate(-50%, -50%) scale(0.3);
+    animation: estallarFuego 1.2s ease-out forwards;
+}
+
+@keyframes estallarFuego {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+    50% { opacity: 1; }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--fx)), calc(-50% + var(--fy))) scale(0); }
+}
+
+/* ================= ESTILOS PARA LA PANTALLA 4: EL LUGAR ================= */
+.nombre-lugar {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600;
+    color: var(--texto-principal); margin-bottom: 8px; letter-spacing: 1px;
+}
+
+.detalles-lugar {
+    font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 400;
+    color: var(--texto-secundario); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 25px;
+}
+
+.contenedor-mapa {
+    width: 100%; max-width: 440px; height: 250px;
+    margin: 0 auto; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); border: 4px solid var(--caja-bg);
+}
+
+/* ================= RELOJ MODERNO Y ELEGANTE ================= */
+.subtitulo-contador {
+    font-size: 0.95rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--texto-secundario); margin-bottom: 30px; font-weight: 300;
+}
+
+.reloj-contenedor {
+    display: flex; justify-content: center; align-items: center; gap: 15px;
+    margin-top: 10px; position: relative;
+}
+
+.caja-tiempo {
+    background: var(--caja-bg); padding: 15px 12px; border-radius: 12px;
+    min-width: 75px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border: 1px solid var(--caja-borde); display: flex; flex-direction: column; align-items: center;
+}
+
+.numero-reloj {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 600;
+    color: var(--texto-principal); line-height: 1; transition: transform 0.2s ease;
+}
+
+.etiqueta-tiempo {
+    font-family: 'Montserrat', sans-serif; font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--texto-secundario); margin-top: 6px;
+}
+
+.separador-reloj {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600;
+    color: #b5c4d0; margin-bottom: 20px;
+}
+
+/* ================= EXPLOSIÓN DE CORAZONES ================= */
+#explosion-corazones-container {
+    position: absolute; top: 50%; left: 50%; width: 0; height: 0;
+    pointer-events: none; z-index: 50; overflow: visible;
+}
+
+.corazon-explosion {
+    position: absolute; width: 24px; height: 24px; color: #ff6b81;
+    opacity: 0; transform: translate(-50%, -50%) scale(0.2);
+    animation: estallarCorazon 1s ease-out forwards;
+}
+
+@keyframes estallarCorazon {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2) rotate(var(--rot)); }
+}
+
+/* ================= CARRUSEL 3D Y LIGHTBOX ================= */
+.escenario-carrusel-3d {
+    width: 100%; max-width: 320px; height: 240px;
+    margin: 20px auto 10px; perspective: 1000px;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.carrusel-giratorio {
+    width: 100%; height: 100%; position: relative;
+    transform-style: preserve-3d; animation: girarCarrusel 20s linear infinite;
+}
+
+.carrusel-giratorio:hover { animation-play-state: paused; }
+
+.tarjeta-3d {
+    position: absolute; width: 200px; height: 140px;
+    left: 50%; top: 50%; margin-left: -100px; margin-top: -70px;
+    transform-origin: center center;
+    transform: rotateY(calc(var(--i) * 90deg)) translateZ(180px);
+    border-radius: 12px; overflow: hidden; background-color: var(--caja-bg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); border: 3px solid var(--caja-bg);
+    cursor: pointer; transition: transform 0.3s ease;
+}
+
+.tarjeta-3d:hover {
+    transform: rotateY(calc(var(--i) * 90deg)) translateZ(190px) scale(1.05);
+}
+
+@keyframes girarCarrusel {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(-360deg); }
+}
+
+.tarjeta-3d .placeholder-multimedia {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #f5ebd9, #e6d5bc);
+    display: flex; justify-content: center; align-items: center;
+}
+
+.tarjeta-3d .video-placeholder { background: linear-gradient(135deg, #d8e5ec, #bcd1df); }
+
+.tarjeta-3d .etiqueta-fallback {
+    font-size: 0.75rem; font-weight: 500; color: #5a4732;
+    background: rgba(255, 255, 255, 0.9); padding: 4px 10px;
+    border-radius: 20px; letter-spacing: 1px;
+}
+
+.carrusel-leyenda {
+    font-size: 0.85rem; color: var(--texto-secundario); letter-spacing: 1px; margin-top: 10px;
+}
+
+#lightbox {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85); z-index: 100000;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.4s ease;
+}
+
+#lightbox.lightbox-activo { opacity: 1; visibility: visible; }
+
+.lightbox-contenido {
+    position: relative; max-width: 90%; max-height: 90vh;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+
+#lightbox-visor img, #lightbox-visor video {
+    max-width: 100%; max-height: 75vh; border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: contain;
+}
+
+#lightbox-descripcion {
+    color: #fff; font-family: 'Montserrat', sans-serif;
+    font-size: 1rem; margin-top: 15px; letter-spacing: 1px;
+}
+
+#lightbox-cerrar {
+    position: absolute; top: -40px; right: 0; color: #fff;
+    font-size: 2.2rem; cursor: pointer; font-weight: 300; transition: color 0.3s;
+}
+
+#lightbox-cerrar:hover { color: #87CEEB; }
+
+/* ================= BOTÓN DE PRUEBA ================= */
+#btn-modo-prueba {
+    position: fixed; bottom: 25px; right: 25px; width: 50px; height: 50px;
+    border-radius: 50%; background-color: var(--caja-bg); color: var(--texto-principal);
+    border: 2px solid var(--caja-borde); font-size: 1.4rem; display: flex;
+    justify-content: center; align-items: center; cursor: pointer; z-index: 99990;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); transition: transform 0.3s ease, background-color 0.3s ease;
+}
+#btn-modo-prueba:hover { transform: scale(1.1); }
+
+.oculto { display: none !important; }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .contenedor-sobre { max-width: 260px; }
+    .titulo-boda { font-size: 1rem; }
+    .nombres-novios { font-size: 3rem; }
+    .gif-mariposa { width: 38px; }
+    .escenario-carrusel-3d { max-width: 280px; height: 200px; }
+    .tarjeta-3d {
+        width: 160px; height: 115px;
+        margin-left: -80px; margin-top: -57px;
+        transform: rotateY(calc(var(--i) * 90deg)) translateZ(135px);
+    }
+    .tarjeta-3d:hover {
+        transform: rotateY(calc(var(--i) * 90deg)) translateZ(140px) scale(1.05);
+    }
+    .caja-tiempo { min-width: 60px; padding: 10px 8px; }
+    .numero-reloj { font-size: 2.2rem; }
+    .contenedor-mapa { height: 210px; max-width: 320px; }
+    .frase-te-esperamos { font-size: 2.8rem; }
+}

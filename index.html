@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="tema-claro" id="cuerpo-principal">
+
+    <div id="cortina-transicion">
+        <div id="icono-transicion">☀️</div>
+    </div>
+
+    <div id="preloader">
+        <svg class="anillos-svg" width="120" height="80" viewBox="0 0 120 80" fill="none" stroke-width="4" stroke-linecap="round">
+            <circle cx="45" cy="40" r="25" class="anillo-trazo" />
+            <circle cx="75" cy="40" r="25" class="anillo-trazo" style="animation-delay: 0.3s;" />
+        </svg>
+        <p class="cargando-texto">Preparando todo...</p>
+    </div>
+
+    <nav id="top-bar">
+        <div class="indicador activo" data-seccion="0">Nuestra Boda</div>
+        <div class="indicador" data-seccion="1">Nuestra Historia</div>
+        <div class="indicador" data-seccion="2">El Contador</div>
+        <div class="indicador" data-seccion="3">El Lugar</div>
+        <div class="indicador" data-seccion="4">Te Esperamos</div>
+    </nav>
+
+    <div id="luceros-container"></div>
+    <div id="mariposas-container"></div>
+
+    <main id="contenido-principal" class="oculto">
+        
+        <section id="pantalla-1" class="pantalla-seccion" data-color-dia="#87CEEB" data-color-noche="#1a2530">
+            <div class="contenido-centro">
+                
+                <div class="contenedor-sobre open-fade">
+                    <img src="invi.jpg" alt="Sobre de Invitación" class="imagen-sobre">
+                </div>
+                
+                <h1 class="titulo-boda efecto-digitacion" data-texto="Nuestra Boda"></h1>
+                <div class="linea-divisoria open-fade" style="animation-delay: 1.2s;"></div>
+                
+                <p class="fecha-boda efecto-digitacion" data-texto="Sábado, 14 de Octubre de 2026" style="animation-delay: 1.5s;"></p>
+                
+                <h2 class="nombres-novios efecto-digitacion" data-texto="Emilia & Daniel" style="animation-delay: 2.5s;"></h2>
+            </div>
+        </section>
+
+        <section id="pantalla-2" class="pantalla-seccion" data-color-dia="#DDA7A5" data-color-noche="#332226">
+            <div class="contenido-centro">
+                <h2 class="titulo-seccion">Nuestra Historia</h2>
+                
+                <div class="escenario-carrusel-3d">
+                    <div class="carrusel-giratorio" id="carrusel-3d">
+                        
+                        <div class="tarjeta-3d" data-descripcion="Nuestro primer encuentro bajo la lluvia" style="--i: 0;">
+                            <div class="placeholder-multimedia" style="background-image: url('imagen1'); background-size: cover; background-position: center;">
+                                <span class="etiqueta-fallback">imagen1</span>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-3d" data-descripcion="El día que dijimos que sí" style="--i: 1;">
+                            <div class="placeholder-multimedia" style="background-image: url('imagen2'); background-size: cover; background-position: center;">
+                                <span class="etiqueta-fallback">imagen2</span>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-3d" data-descripcion="Aventuras inolvidables juntos" style="--i: 2;">
+                            <div class="placeholder-multimedia" style="background-image: url('imagen3'); background-size: cover; background-position: center;">
+                                <span class="etiqueta-fallback">imagen3</span>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-3d" data-descripcion="Un pequeño vistazo a nuestros momentos" style="--i: 3;">
+                            <div class="placeholder-multimedia video-placeholder">
+                                <span class="etiqueta-fallback">video1</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <p class="carrusel-leyenda">Toca cualquier tarjeta para ampliarla</p>
+            </div>
+        </section>
+
+        <section id="pantalla-3" class="pantalla-seccion" data-color-dia="#B5E2FA" data-color-noche="#1c303f">
+            <div class="contenido-centro seccion-animada">
+                <h2 class="titulo-seccion">Faltan</h2>
+                <p class="subtitulo-contador">Para el gran día</p>
+                
+                <div class="reloj-contenedor">
+                    <div class="caja-tiempo">
+                        <span id="dias" class="numero-reloj">00</span>
+                        <span class="etiqueta-tiempo">Días</span>
+                    </div>
+                    <div class="separador-reloj">:</div>
+                    <div class="caja-tiempo">
+                        <span id="horas" class="numero-reloj">00</span>
+                        <span class="etiqueta-tiempo">Horas</span>
+                    </div>
+                    <div class="separador-reloj">:</div>
+                    <div class="caja-tiempo">
+                        <span id="minutos" class="numero-reloj">00</span>
+                        <span class="etiqueta-tiempo">Minutos</span>
+                    </div>
+                    <div class="separador-reloj">:</div>
+                    <div class="caja-tiempo">
+                        <span id="segundos" class="numero-reloj">00</span>
+                        <span class="etiqueta-tiempo">Segundos</span>
+                    </div>
+                </div>
+
+                <div id="explosion-corazones-container"></div>
+            </div>
+        </section>
+
+        <section id="pantalla-4" class="pantalla-seccion" data-color-dia="#CBE8BA" data-color-noche="#243020">
+            <div class="contenido-centro seccion-animada">
+                <h2 class="titulo-seccion">El Lugar</h2>
+                <p class="nombre-lugar">Hacienda Los Encinos</p>
+                <p class="detalles-lugar">Sábado, 14 de Octubre de 2026 • 4:00 PM</p>
+                
+                <div class="contenedor-mapa">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3870.9234827183!2d-89.2312!3d13.6929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM3DCsDQxJzM0LjQiTiA4OcKwMTMnNTIuMyJX!5e0!3m2!1ses!2ssv!4v1620000000000!5m2!1ses!2ssv" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="pantalla-5" class="pantalla-seccion" data-color-dia="#E8C39E" data-color-noche="#38291f">
+            <div class="contenido-centro seccion-animada">
+                <h2 class="titulo-seccion">Gracias por ser parte de este sueño</h2>
+                <p class="texto-agradecimiento efecto-digitacion" data-texto="Su presencia es el mejor regalo para comenzar nuestra historia juntos. ¡Los esperamos con el corazón abierto!"></p>
+                <h3 class="frase-te-esperamos efecto-digitacion" data-texto="Te Esperamos" style="animation-delay: 2.2s;"></h3>
+                
+                <div id="fuegos-artificiales-container"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <button id="btn-modo-prueba" title="Cambiar Tema (Día/Noche)">☀️</button>
+
+    <div id="lightbox" class="lightbox-oculto">
+        <div class="lightbox-contenido">
+            <span id="lightbox-cerrar">×</span>
+            <div id="lightbox-visor"></div>
+            <p id="lightbox-descripcion"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
